@@ -1,0 +1,36 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
+Layout/Tab:
+  Enabled: false
+  IndentationWidth: 2
+Layout/IndentationWidth:
+  Width: 1
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+
+Metrics/BlockLength:
+  Exclude:
+    - '*.gemspec'
+    - spec/**/*.rb
+
+AllCops:
+  TargetRubyVersion: 2.5
+
+RSpec/NestedGroups:
+  Max: 6
+RSpec/RepeatedExampleGroupBody:
+  Exclude:
+    ## Variables are generating from context description
+    - spec/example_file_spec.rb
