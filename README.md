@@ -16,13 +16,13 @@ gem 'example_file'
 
 And then execute:
 
-```
+```shell
 bundle install
 ```
 
 Or install it yourself as:
 
-```
+```shell
 gem install example_file
 ```
 
@@ -58,19 +58,19 @@ It'll act in these ways:
 
 You should add example files to git control:
 
-```
+```shell
 git add some_file.example.conf
 ```
 
 And ignore regular ones in `.gitignore`:
 
-```
+```gitignore
 some_file.conf
 ```
 
 Recursively it'd be like:
 
-```
+```gitignore
 config/**/*
 !config/**/*.example*
 ```
