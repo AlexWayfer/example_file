@@ -30,6 +30,6 @@ test_task:
       image: ruby:2.6
       image: ruby:2.7
   <<: *bundle_cache
-  # environment:
-  #   CODECOV_TOKEN: ENCRYPTED[...]
+  environment:
+    CODECOV_TOKEN: ENCRYPTED[de650f17db291399a09839a898ab3be8d0bb09a14b369f16f31a1831d6db8d826d4601ea7ad87eab99d005ad832846cc]
   test_script: bundle exec rake
