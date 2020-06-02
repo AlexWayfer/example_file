@@ -27,9 +27,7 @@ describe ExampleFile do
 			end
 		end
 
-		shared_examples 'files content comparison' do |
-			is_equal, value_method = :example_file_content
-		|
+		shared_examples 'files content comparison' do |is_equal, value_method = :example_file_content|
 			describe 'comparison regular file content and example file content' do
 				let(:class_for_description) { superclass_for_description }
 
