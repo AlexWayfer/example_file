@@ -41,6 +41,8 @@ Style/RedundantRegexpEscape:
   Enabled: true
 Style/SlicingWithRange:
   Enabled: true
+Style/RedundantFetchBlock:
+  Enabled: true
 
 Metrics/BlockLength:
   Exclude:
