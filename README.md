@@ -5,7 +5,7 @@
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/AlexWayfer/example_file.svg?style=flat-square)](https://codeclimate.com/github/AlexWayfer/example_file)
 ![Depfu](https://img.shields.io/depfu/AlexWayfer/example_file?style=flat-square)
 [![Inline docs](https://inch-ci.org/github/AlexWayfer/example_file.svg?branch=master)](https://inch-ci.org/github/AlexWayfer/example_file)
-[![license](https://img.shields.io/github/license/AlexWayfer/example_file.svg?style=flat-square)](https://github.com/AlexWayfer/example_file/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/AlexWayfer/example_file.svg?style=flat-square)](https://github.com/AlexWayfer/example_file/blob/master/LICENSE.txt)
 [![Gem](https://img.shields.io/gem/v/example_file.svg?style=flat-square)](https://rubygems.org/gems/example_file)
 
 Class helper for example files. Usualy it's the alternative
