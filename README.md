@@ -8,7 +8,7 @@
 [![license](https://img.shields.io/github/license/AlexWayfer/example_file.svg?style=flat-square)](https://github.com/AlexWayfer/example_file/blob/master/LICENSE.txt)
 [![Gem](https://img.shields.io/gem/v/example_file.svg?style=flat-square)](https://rubygems.org/gems/example_file)
 
-Class helper for example files. Usualy it's the alternative
+Class helper for example files. Usually it's the alternative
 to environment variables (and `.env` files).
 
 You can have git-controlled example files and git-ignored real files.
