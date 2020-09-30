@@ -15,9 +15,19 @@ describe ExampleFile do
 	end
 
 	describe '#actualize_regular_file' do
+		shared_context 'with EDITOR evaluation' do
+			before do
+				allow(instance).to receive(:system).with(start_with('eval $EDITOR')) do
+					File.write regular_file_name, new_regular_file_content
+				end
+			end
+		end
+
 		shared_examples 'files mtime comparison' do
 			describe 'comparison regular file mtime and example file mtime' do
 				let(:class_for_description) { superclass_for_description }
+
+				include_context 'with EDITOR evaluation'
 
 				before do
 					instance.actualize_regular_file
@@ -30,6 +40,8 @@ describe ExampleFile do
 		shared_examples 'files content comparison' do |is_equal, value_method = :example_file_content|
 			describe 'comparison regular file content and example file content' do
 				let(:class_for_description) { superclass_for_description }
+
+				include_context 'with EDITOR evaluation'
 
 				before do
 					instance.actualize_regular_file
@@ -46,15 +58,26 @@ describe ExampleFile do
 		shared_examples 'regular file edited in editor' do
 			let(:new_regular_file_content) { '3' }
 
-			before do
-				allow(instance).to receive(:system)
-					.with(start_with('eval $EDITOR')) do
-						File.write regular_file_name, new_regular_file_content
-					end
+			context 'when $EDITOR variable exists' do
+				include_context 'with EDITOR evaluation'
+
+				include_examples 'files content comparison', true, :new_regular_file_content
 			end
 
-			include_examples 'files content comparison',
-				true, :new_regular_file_content
+			context 'when $EDITOR variable not set' do
+				let(:abort_text) { '`EDITOR` environment variable is empty, see README' }
+
+				before do
+					allow(ENV).to receive(:[]).with('EDITOR').and_return(nil)
+
+					allow(instance).to receive(:abort).with(abort_text).and_call_original.once
+				end
+
+				it do
+					expect { instance.actualize_regular_file }.to raise_error(SystemExit)
+						.and output("#{abort_text}\n").to_stderr
+				end
+			end
 		end
 
 		def build_example_description(example_class)

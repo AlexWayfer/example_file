@@ -48,6 +48,7 @@ regular file.
 Editor below is `$EDITOR` environment variable.
 You should set it to your preferred editor, console or GUI
 (console is more comfortable usually for such scenarios).
+Otherwise the whole program will be aborted with a message about this.
 
 It'll act in these ways:
 

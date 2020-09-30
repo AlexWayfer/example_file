@@ -100,6 +100,8 @@ class ExampleFile
 	end
 
 	def edit_file(filename)
+		abort '`EDITOR` environment variable is empty, see README' if ENV['EDITOR'].to_s.empty?
+
 		system "eval $EDITOR #{filename}"
 	end
 

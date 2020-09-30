@@ -45,3 +45,5 @@ RSpec/RepeatedExampleGroupBody:
   Exclude:
     ## Variables are generating from context description
     - spec/example_file_spec.rb
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
