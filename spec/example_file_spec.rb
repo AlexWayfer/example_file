@@ -146,7 +146,7 @@ describe ExampleFile do
 				end
 
 				before do
-					allow(STDOUT).to receive(:puts).with <<~WARN
+					allow($stdout).to receive(:puts).with <<~WARN
 						#{Paint[File.basename(file_name), :green, :bold]} was modified after #{stylized_regular_file_name}.
 
 						```diff
@@ -157,13 +157,13 @@ describe ExampleFile do
 
 					WARN
 
-					allow(STDOUT).to receive(:write).with <<~QUESTION.chomp
+					allow($stdout).to receive(:write).with <<~QUESTION.chomp
 						Do you want to edit #{stylized_regular_file_name} ? (yes, replace or no) \
 
 					QUESTION
 
-					allow(STDIN).to receive(:eof?).and_return(false)
-					allow(STDIN).to receive(:gets).and_return(answer)
+					allow($stdin).to receive(:eof?).and_return(false)
+					allow($stdin).to receive(:gets).and_return(answer)
 				end
 
 				context 'when answer is `yes`' do
@@ -201,7 +201,7 @@ describe ExampleFile do
 					let(:answer) { 'no' }
 
 					before do
-						allow(STDOUT).to receive(:puts).with('File modified time updated')
+						allow($stdout).to receive(:puts).with('File modified time updated')
 					end
 
 					include_examples 'files mtime comparison'
