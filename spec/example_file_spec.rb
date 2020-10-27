@@ -4,6 +4,11 @@ describe ExampleFile do
 	let(:instance) { described_class.new(file_name) }
 	let(:fixtures_dir) { "#{__dir__}/fixtures" }
 
+	before do
+		allow(ENV).to receive(:[]).and_call_original
+		allow(ENV).to receive(:[]).with('EDITOR').and_return('nano')
+	end
+
 	describe '.all' do
 		subject { described_class.all(fixtures_dir) }
 
