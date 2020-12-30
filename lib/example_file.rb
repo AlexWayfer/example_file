@@ -31,7 +31,7 @@ class ExampleFile
 	def actualize_regular_file
 		return create_regular_file unless regular_file_exist?
 
-		return unless new?
+		return unless updated?
 
 		return update_regular_file if diff.chomp.empty?
 
@@ -40,7 +40,7 @@ class ExampleFile
 
 	private
 
-	def new?
+	def updated?
 		File.mtime(@file_name) > File.mtime(@regular_file_name)
 	end
 
