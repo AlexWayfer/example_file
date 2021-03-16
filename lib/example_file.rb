@@ -64,9 +64,9 @@ class ExampleFile
 	end
 
 	CHOICES = {
-		yes: proc { edit_file @regular_file_name },
+		edit: proc { edit_file @regular_file_name },
 		replace: proc { rewrite_regular_file },
-		no: proc do
+		keep: proc do
 			update_regular_file
 			puts 'File modified time updated'
 		end
@@ -80,7 +80,7 @@ class ExampleFile
 		HIGHLINE.choose do |menu|
 			menu.layout = :one_line
 
-			menu.prompt = "Do you want to edit #{@regular_basename} ? "
+			menu.prompt = "What do you want to do with #{@regular_basename} ? "
 
 			CHOICES.each do |answer, block|
 				menu.choice(answer) { instance_exec(&block) }

@@ -163,7 +163,7 @@ describe ExampleFile do
 					WARN
 
 					allow($stdout).to receive(:write).with <<~QUESTION.chomp
-						Do you want to edit #{stylized_regular_file_name} ? (yes, replace or no) \
+						What do you want to do with #{stylized_regular_file_name} ? (edit, replace or keep) \
 
 					QUESTION
 
@@ -171,8 +171,8 @@ describe ExampleFile do
 					allow($stdin).to receive(:gets).and_return(answer)
 				end
 
-				context 'when answer is `yes`' do
-					let(:answer) { 'yes' }
+				context 'when answer is `edit`' do
+					let(:answer) { 'edit' }
 
 					around do |example|
 						old_regular_file_name_content = File.read regular_file_name
@@ -202,8 +202,8 @@ describe ExampleFile do
 					include_examples 'files content comparison', true
 				end
 
-				context 'when answer is `no`' do
-					let(:answer) { 'no' }
+				context 'when answer is `keep`' do
+					let(:answer) { 'keep' }
 
 					before do
 						allow($stdout).to receive(:puts).with('File modified time updated')
