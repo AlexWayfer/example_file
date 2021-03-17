@@ -3,6 +3,9 @@
 ## master (unreleased)
 
 *   Remake the question from "Do you want to edit?" to "What to do?".
+*   Add `replace-and-edit` answer.
+*   Change menu layout from inline to rows with numbers.
+    I have no idea how to make easier shortcut for `replace-and-edit`.
 *   Add Ruby 3 support and CI.
 *   Update development dependencies.
 

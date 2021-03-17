@@ -21,10 +21,20 @@ describe ExampleFile do
 
 	describe '#actualize_regular_file' do
 		shared_context 'with EDITOR evaluation' do
+			let(:regular_file_content_before_edit) do
+				File.read(regular_file_name) if File.exist? regular_file_name
+			end
+
 			before do
 				allow(instance).to receive(:system).with(start_with('eval $EDITOR')) do
+					regular_file_content_before_edit
 					File.write regular_file_name, new_regular_file_content
+					regular_file_content
 				end
+			end
+
+			after do
+				File.write regular_file_name, regular_file_content_before_edit
 			end
 		end
 
@@ -53,18 +63,34 @@ describe ExampleFile do
 				end
 
 				it do
-					expect(regular_file_content).public_send(
+					expect(File.read(regular_file_name)).public_send(
 						is_equal ? :to : :not_to, eq(send(value_method))
 					)
 				end
 			end
 		end
 
-		shared_examples 'regular file edited in editor' do
+		shared_examples 'regular file edited in editor' do |content_before_edit_method: nil|
 			let(:new_regular_file_content) { '3' }
 
 			context 'when $EDITOR variable exists' do
 				include_context 'with EDITOR evaluation'
+
+				if content_before_edit_method
+					describe 'regular file content before edit' do
+						subject { regular_file_content_before_edit }
+
+						before do
+							instance.actualize_regular_file
+						end
+
+						let(:expected_content_before_edit) do
+							send(content_before_edit_method)
+						end
+
+						it { is_expected.to eq expected_content_before_edit }
+					end
+				end
 
 				include_examples 'files content comparison', true, :new_regular_file_content
 			end
@@ -114,12 +140,13 @@ describe ExampleFile do
 
 		context 'when file without regular' do
 			after do
-				FileUtils.rm regular_file_name
+				FileUtils.rm regular_file_name if File.exist? regular_file_name
 			end
 
 			include_examples 'files mtime comparison'
 
-			include_examples 'regular file edited in editor'
+			include_examples 'regular file edited in editor',
+				content_before_edit_method: :example_file_content
 		end
 
 		context 'when file with actual regular' do
@@ -132,6 +159,8 @@ describe ExampleFile do
 
 		context 'when file with outdated regular' do
 			before do
+				## After previous tests with touching regular file
+				sleep 0.1
 				FileUtils.touch file_name
 				## For difference between this touch and actualization
 				sleep 0.1
@@ -167,7 +196,12 @@ describe ExampleFile do
 					allow($stdout).to receive(:write).and_call_original
 
 					allow($stdout).to receive(:write).with <<~QUESTION.chomp
-						What do you want to do with #{stylized_regular_file_name} ? (edit, replace or keep) \
+						What to do with #{stylized_regular_file_name} :
+						1. edit
+						2. replace
+						3. replace-and-edit
+						4. keep
+						?  \
 
 					QUESTION
 
@@ -175,40 +209,91 @@ describe ExampleFile do
 					allow($stdin).to receive(:gets).and_return(answer)
 				end
 
-				context 'when answer is `edit`' do
-					let(:answer) { 'edit' }
-
+				shared_examples 'edit behavior' do
 					around do |example|
 						old_regular_file_name_content = File.read regular_file_name
 						example.run
 						File.write regular_file_name, old_regular_file_name_content
-						## For next tests with touching example file
-						sleep 0.1
 					end
 
 					include_examples 'files mtime comparison'
 
-					include_examples 'regular file edited in editor'
+					include_examples 'regular file edited in editor', content_before_edit_method: nil
 				end
 
-				context 'when answer is `replace`' do
-					let(:answer) { 'replace' }
+				context 'when answer is `edit`' do
+					let(:answer) { 'edit' }
 
+					include_examples 'edit behavior'
+				end
+
+				context 'when answer is `e`' do
+					let(:answer) { 'e' }
+
+					include_examples 'edit behavior'
+				end
+
+				context 'when answer is `1`' do
+					let(:answer) { '1' }
+
+					include_examples 'edit behavior'
+				end
+
+				shared_examples 'replace behavior' do
 					around do |example|
 						old_regular_file_name_content = File.read regular_file_name
 						example.run
 						File.write regular_file_name, old_regular_file_name_content
-						## For next tests with touching example file
-						sleep 0.1
 					end
 
 					include_examples 'files mtime comparison'
 					include_examples 'files content comparison', true
 				end
 
-				context 'when answer is `keep`' do
-					let(:answer) { 'keep' }
+				context 'when answer is `replace`' do
+					let(:answer) { 'replace' }
 
+					include_examples 'replace behavior'
+				end
+
+				context 'when answer is `r`' do
+					let(:answer) { 'r' }
+
+					include_examples 'replace behavior'
+				end
+
+				context 'when answer is `2`' do
+					let(:answer) { '2' }
+
+					include_examples 'replace behavior'
+				end
+
+				shared_examples 'replace-and-edit behavior' do
+					around do |example|
+						old_regular_file_name_content = regular_file_content
+						example.run
+						File.write regular_file_name, old_regular_file_name_content
+					end
+
+					include_examples 'regular file edited in editor',
+						content_before_edit_method: :example_file_content
+
+					include_examples 'files mtime comparison'
+				end
+
+				context 'when answer is `replace-and-edit`' do
+					let(:answer) { 'replace-and-edit' }
+
+					include_examples 'replace-and-edit behavior'
+				end
+
+				context 'when answer is `3`' do
+					let(:answer) { '3' }
+
+					include_examples 'replace-and-edit behavior'
+				end
+
+				shared_examples 'keep behavior' do
 					before do
 						allow($stdout).to receive(:puts).with('File modified time updated')
 					end
@@ -221,6 +306,24 @@ describe ExampleFile do
 							expect(regular_file_content).not_to eq example_file_content
 						end
 					end
+				end
+
+				context 'when answer is `keep`' do
+					let(:answer) { 'keep' }
+
+					include_examples 'keep behavior'
+				end
+
+				context 'when answer is `k`' do
+					let(:answer) { 'k' }
+
+					include_examples 'keep behavior'
+				end
+
+				context 'when answer is `4`' do
+					let(:answer) { '4' }
+
+					include_examples 'keep behavior'
 				end
 			end
 		end
