@@ -61,7 +61,8 @@ It'll act in these ways:
         *   ask for a further action:
             *   open the editor;
             *   just update regular without changes;
-            *   or replace regular file with a content from new example file.
+            *   replace regular file with a content from new example file;
+            *   or replace and then open the editor.
 *   If there is regular file with file modified time after example file:
     *   do nothing.
 

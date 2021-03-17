@@ -66,6 +66,10 @@ class ExampleFile
 	CHOICES = {
 		edit: proc { edit_file @regular_file_name },
 		replace: proc { rewrite_regular_file },
+		'replace-and-edit': proc do
+			rewrite_regular_file
+			edit_file @regular_file_name
+		end,
 		keep: proc do
 			update_regular_file
 			puts 'File modified time updated'
@@ -78,9 +82,10 @@ class ExampleFile
 		puts warning_with_diff
 
 		HIGHLINE.choose do |menu|
-			menu.layout = :one_line
+			## I don't know how to catch complex options like `replace-and-edit`, via shortcut like `rae`
+			# menu.layout = :one_line
 
-			menu.prompt = "What do you want to do with #{@regular_basename} ? "
+			menu.header = "What to do with #{@regular_basename} "
 
 			CHOICES.each do |answer, block|
 				menu.choice(answer) { instance_exec(&block) }
