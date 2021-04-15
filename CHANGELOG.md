@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+## 0.3.1 (2021-04-16)
+
+*   Fix Ruby warnings (and specs fails).
+
 ## 0.3.0 (2021-04-16)
 
 *   Remake the question from "Do you want to edit?" to "What to do?".
