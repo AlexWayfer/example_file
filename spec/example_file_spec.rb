@@ -151,6 +151,8 @@ describe ExampleFile do
 				end
 
 				before do
+					allow($stdout).to receive(:puts).and_call_original
+
 					allow($stdout).to receive(:puts).with <<~WARN
 						#{Paint[File.basename(file_name), :green, :bold]} was modified after #{stylized_regular_file_name}.
 
@@ -161,6 +163,8 @@ describe ExampleFile do
 						```
 
 					WARN
+
+					allow($stdout).to receive(:write).and_call_original
 
 					allow($stdout).to receive(:write).with <<~QUESTION.chomp
 						What do you want to do with #{stylized_regular_file_name} ? (edit, replace or keep) \
