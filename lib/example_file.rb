@@ -18,14 +18,17 @@ class ExampleFile
 		end
 	end
 
+	attr_reader :choices
+	attr_writer :question_prefix
+
 	def initialize(file_name)
 		@file_name = file_name
 		@regular_file_name = @file_name.sub SUFFIX, ''
 
-		@basename =
-			Paint[File.basename(@file_name), :green, :bold]
-		@regular_basename =
-			Paint[File.basename(@regular_file_name), :red, :bold]
+		@basename = Paint[File.basename(@file_name), :green, :bold]
+		@regular_basename = Paint[File.basename(@regular_file_name), :red, :bold]
+
+		@choices = DEFAULT_CHOICES.dup
 	end
 
 	def actualize_regular_file
@@ -63,7 +66,7 @@ class ExampleFile
 			.to_s(:color)
 	end
 
-	CHOICES = {
+	DEFAULT_CHOICES = {
 		edit: proc { edit_file @regular_file_name },
 		replace: proc { rewrite_regular_file },
 		'replace-and-edit': proc do
@@ -76,7 +79,7 @@ class ExampleFile
 		end
 	}.freeze
 
-	private_constant :CHOICES
+	private_constant :DEFAULT_CHOICES
 
 	def ask_question_and_make_actions
 		puts warning_with_diff
@@ -87,7 +90,7 @@ class ExampleFile
 
 			menu.header = "What to do with #{@regular_basename} "
 
-			CHOICES.each do |answer, block|
+			choices.each do |answer, block|
 				menu.choice(answer) { instance_exec(&block) }
 			end
 		end
@@ -95,7 +98,7 @@ class ExampleFile
 
 	def warning_with_diff
 		<<~WARN
-			#{@basename} was modified after #{@regular_basename}.
+			#{@question_prefix}#{@basename} was modified after #{@regular_basename}.
 
 			```diff
 			#{diff}
