@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+*   Remake the question from "Do you want to edit?" to "What to do?".
+*   Add Ruby 3 support and CI.
+*   Update development dependencies.
+
 ## 0.2.0 (2020-09-30)
 
 *   Abort program on try to edit file without `$EDITOR` environment variable.
