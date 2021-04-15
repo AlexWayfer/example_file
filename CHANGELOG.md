@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 0.3.0 (2021-04-16)
+
 *   Remake the question from "Do you want to edit?" to "What to do?".
 *   Add `replace-and-edit` answer.
 *   Change menu layout from inline to rows with numbers.
