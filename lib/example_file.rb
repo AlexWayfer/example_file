@@ -29,6 +29,7 @@ class ExampleFile
 		@regular_basename = Paint[File.basename(@regular_file_name), :red, :bold]
 
 		@choices = DEFAULT_CHOICES.dup
+		@question_prefix = nil
 	end
 
 	def actualize_regular_file
