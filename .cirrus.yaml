@@ -33,8 +33,7 @@ rubocop_task:
   lint_script: bundle exec rubocop
   only_if: ($CIRRUS_BRANCH == 'master') ||
     changesInclude(
-      '.cirrus.yaml', '.gitignore', 'Gemfile', 'Rakefile', '.rubocop.yml', '*.gemspec',
-      '**.rb', '**.ru'
+      '.cirrus.yaml', '.gitignore', 'Gemfile', '.rubocop.yml', '*.gemspec', '**.rb', '**.ru'
     )
 
 rspec_task:
@@ -53,6 +52,5 @@ rspec_task:
   test_script: bundle exec rspec
   only_if: ($CIRRUS_BRANCH == 'master') ||
     changesInclude(
-      '.cirrus.yaml', '.gitignore', 'Gemfile', 'Rakefile', '.rspec', '*.gemspec', 'lib/**',
-      'spec/**'
+      '.cirrus.yaml', '.gitignore', 'Gemfile', '.rspec', '*.gemspec', 'lib/**', 'spec/**'
     )
