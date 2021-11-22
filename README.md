@@ -1,11 +1,11 @@
 # Example File
 
 ![Cirrus CI - Base Branch Build Status](https://img.shields.io/cirrus/github/AlexWayfer/example_file?style=flat-square)
-[![Codecov branch](https://img.shields.io/codecov/c/github/AlexWayfer/example_file/master.svg?style=flat-square)](https://codecov.io/gh/AlexWayfer/example_file)
+[![Codecov branch](https://img.shields.io/codecov/c/github/AlexWayfer/example_file/main.svg?style=flat-square)](https://codecov.io/gh/AlexWayfer/example_file)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/AlexWayfer/example_file.svg?style=flat-square)](https://codeclimate.com/github/AlexWayfer/example_file)
 ![Depfu](https://img.shields.io/depfu/AlexWayfer/example_file?style=flat-square)
-[![Inline docs](https://inch-ci.org/github/AlexWayfer/example_file.svg?branch=master)](https://inch-ci.org/github/AlexWayfer/example_file)
-[![license](https://img.shields.io/github/license/AlexWayfer/example_file.svg?style=flat-square)](https://github.com/AlexWayfer/example_file/blob/master/LICENSE.txt)
+[![Inline docs](https://inch-ci.org/github/AlexWayfer/example_file.svg?branch=main)](https://inch-ci.org/github/AlexWayfer/example_file)
+[![license](https://img.shields.io/github/license/AlexWayfer/example_file.svg?style=flat-square)](https://github.com/AlexWayfer/example_file/blob/main/LICENSE.txt)
 [![Gem](https://img.shields.io/gem/v/example_file.svg?style=flat-square)](https://rubygems.org/gems/example_file)
 
 Class helper for example files. Usually it's the alternative
