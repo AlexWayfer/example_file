@@ -140,7 +140,7 @@ describe ExampleFile do
 
 		context 'when file without regular' do
 			after do
-				FileUtils.rm regular_file_name if File.exist? regular_file_name
+				FileUtils.rm regular_file_name
 			end
 
 			include_examples 'files mtime comparison'
