@@ -4,6 +4,14 @@ describe ExampleFile do
 	let(:instance) { described_class.new(file_name) }
 	let(:fixtures_dir) { "#{__dir__}/fixtures" }
 
+	let(:regular_file_name) { file_name.sub('.example', '') }
+
+	let(:example_file_mtime) { File.mtime(file_name) }
+	let(:regular_file_mtime) { File.mtime(regular_file_name) }
+
+	let(:example_file_content) { File.read(file_name) }
+	let(:regular_file_content) { File.read(regular_file_name) }
+
 	before do
 		allow(ENV).to receive(:[]).and_call_original
 		allow(ENV).to receive(:[]).with('EDITOR').and_return('nano')
@@ -16,6 +24,52 @@ describe ExampleFile do
 			subject { super().map(&:class).uniq }
 
 			it { is_expected.to eq [described_class] }
+		end
+	end
+
+	describe '#initialize_regular_file' do
+		context 'when there is no regular file' do
+			let(:file_name) { "#{fixtures_dir}/file_without_regular.example.conf" }
+
+			before do
+				allow(instance).to receive(:system)
+
+				instance.initialize_regular_file
+			end
+
+			after do
+				FileUtils.rm regular_file_name
+			end
+
+			describe 'regular file' do
+				subject { regular_file_content }
+
+				it { is_expected.to eq example_file_content }
+			end
+
+			describe 'instance' do
+				specify do
+					expect(instance).not_to have_received(:system)
+				end
+			end
+		end
+
+		context 'when there is already regular file' do
+			let(:file_name) { "#{fixtures_dir}/file_with_actual_regular.example.conf" }
+
+			before do
+				FileUtils.touch regular_file_name
+			end
+
+			describe 'method call' do
+				subject(:call) { instance.initialize_regular_file }
+
+				specify do
+					expect { call }.to raise_error(
+						RuntimeError, 'File `file_with_actual_regular.conf` already exists'
+					)
+				end
+			end
 		end
 	end
 
@@ -130,13 +184,6 @@ describe ExampleFile do
 			result = file_name_parts.join('_')
 			Dir["#{fixtures_dir}/#{result}.example*"].first
 		end
-		let(:regular_file_name) { file_name.sub('.example', '') }
-
-		let(:example_file_mtime) { File.mtime(file_name) }
-		let(:regular_file_mtime) { File.mtime(regular_file_name) }
-
-		let(:example_file_content) { File.read(file_name) }
-		let(:regular_file_content) { File.read(regular_file_name) }
 
 		context 'when file without regular' do
 			after do

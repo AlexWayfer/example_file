@@ -42,6 +42,14 @@ class ExampleFile
 		ask_question_and_make_actions
 	end
 
+	def initialize_regular_file
+		if File.exist? @regular_file_name
+			raise "File `#{File.basename(@regular_file_name)}` already exists"
+		end
+
+		FileUtils.cp @file_name, @regular_file_name
+	end
+
 	private
 
 	def updated?
@@ -53,7 +61,7 @@ class ExampleFile
 	end
 
 	def create_regular_file
-		FileUtils.cp @file_name, @regular_file_name
+		initialize_regular_file
 		edit_file @regular_file_name
 	end
 
