@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.4.0 (2022-09-29)
+
+*   Drop Ruby 2.5 support.
+*   Add Ruby 3.1 support.
+*   Add `#initialize_regular_file` method.
+*   Update development dependencies.
+*   Resolve new RuboCop offenses.
+*   Add `bundle-audit` CI task.
+
 ## 0.3.1 (2021-04-16)
 
 *   Fix Ruby warnings (and specs fails).
