@@ -252,8 +252,7 @@ describe ExampleFile do
 
 					QUESTION
 
-					allow($stdin).to receive(:eof?).and_return(false)
-					allow($stdin).to receive(:gets).and_return(answer)
+					allow($stdin).to receive_messages(eof?: false, gets: answer)
 				end
 
 				shared_examples 'edit behavior' do
