@@ -36,6 +36,6 @@ Gem::Specification.new do |spec|
 	spec.required_ruby_version = '>= 3.0', '< 4'
 
 	spec.add_runtime_dependency 'diffy', '~> 3.0'
-	spec.add_runtime_dependency 'highline', '~> 2.0'
+	spec.add_runtime_dependency 'highline', '~> 3.0'
 	spec.add_runtime_dependency 'paint', '~> 2.0'
 end
