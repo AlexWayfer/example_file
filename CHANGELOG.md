@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## 0.5.0 (2024-01-14)
+
+*   Drop Ruby 2.6 and 2.7 support.
+*   Add Ruby 3.2 and 3.3 support.
+*   Update `highline` dependency.
+*   Move development dependencies from `gemspec` into `Gemfile`.
+*   Update gemspec metadata.
+*   Update development dependencies.
+*   Resolve new RuboCop offenses.
+*   Update License badge.
+*   Improve Cirrus CI config.
+
 ## 0.4.0 (2022-09-29)
 
 *   Drop Ruby 2.5 support.
