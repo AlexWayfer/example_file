@@ -25,7 +25,6 @@ Gem::Specification.new do |spec|
 		'bug_tracker_uri' => "#{github_uri}/issues",
 		'changelog_uri' => "#{github_uri}/blob/v#{spec.version}/CHANGELOG.md",
 		'documentation_uri' => "http://www.rubydoc.info/gems/#{spec.name}/#{spec.version}",
-		'homepage_uri' => spec.homepage,
 		'rubygems_mfa_required' => 'true',
 		'source_code_uri' => github_uri,
 		'wiki_uri' => "#{github_uri}/wiki"
