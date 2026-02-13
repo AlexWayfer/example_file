@@ -210,7 +210,7 @@ describe ExampleFile do
 			end
 
 			context 'with different content' do
-				root_superclass = self
+				root_superclass = self # rubocop:disable RSpec/LeakyLocalVariable
 				let(:class_for_description) { root_superclass }
 				let(:superclass_for_description) { root_superclass }
 
