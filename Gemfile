@@ -7,8 +7,8 @@ gemspec
 group :development do
 	gem 'pry-byebug', '~> 3.9'
 
-	gem 'gem_toys', '~> 0.15.0'
-	gem 'toys', '~> 0.16.0'
+	gem 'gem_toys', '~> 1.0'
+	gem 'toys', '~> 0.19.0'
 end
 
 group :test do
@@ -24,6 +24,5 @@ group :lint do
 end
 
 group :audit do
-	gem 'bundler', '~> 2.0'
 	gem 'bundler-audit', '~> 0.9.0'
 end
